@@ -1,3 +1,61 @@
 ## 参考
 
 https://www.techpit.jp/courses/111/curriculums/114/sections/855/parts/3150
+
+## 環境情報
+
+- create-react-app などは使わない
+
+## コマンド
+
+```bash
+
+# ローカルサーバーの起動
+npm start
+```
+
+## history
+
+```bash
+# react-mdという名前のファイルまたはディレクトリを削除します
+rm react-md
+
+# react-mdという名前の新しいディレクトリを作成します
+mkdir react-md
+
+# Visual Studio Codeでreact-mdディレクトリを開きます
+code react-md/
+
+# package.jsonという名前の新しいファイルを作成します
+touch package.json
+
+# package.jsonに定義された"start"スクリプトを実行します
+npm start
+
+# 現在のディレクトリで新しいGitリポジトリを初期化します
+git init
+
+# webpack.config.jsという名前の新しいファイルを作成します
+touch webpack.config.js
+
+# srcという名前の新しいディレクトリを作成します
+mkdir src/
+
+# srcディレクトリ内にindex.jsという名前の新しいファイルを作成します
+touch src/index.js
+
+# package.jsonに定義された"build"スクリプトを実行します
+npm run build
+
+# webpackのバージョン5とwebpack-cliのバージョン4をインストールします
+npm i webpack@5 webpack-cli@4
+
+# .gitignoreという名前の新しいファイルを作成します
+touch .gitignore
+
+# 再度、package.jsonに定義された"build"スクリプトを実行します
+npm run build
+
+# 最後の50コマンドの履歴を表示します
+history 50
+```
