@@ -87,3 +87,4 @@ npm i react@17 react-dom@17 @types/react@17 @types/react-dom@17
 - github 側の設定をする
 
 → `react-github-pages`ブランチに markdown 機能を除いた資材があるので流用可能
+**※このブランチ。マージしない**
