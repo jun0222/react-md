@@ -70,4 +70,16 @@ mv src/index.js src/index.ts
 
 # buildスクリプトを実行します && nodeコマンドでdist/index.jsを実行します
 npm run build && node ./dist/index.js
+
+# Reactのバージョン17をインストールします && @types/reactと@types/react-domのバージョン17をインストールします
+npm i react@17 react-dom@17 @types/react@17 @types/react-dom@17
 ```
+
+## Github Pages にデプロイ
+
+- index.html を作成する
+- build スクリプトを実行する
+- git push する
+- github 側の設定をする
+
+→ `react-github-pages`ブランチに markdown 機能を除いた資材があるので流用可能
