@@ -1,3 +1,13 @@
+## ローカルでの修正が反映されない
+
+```bash
+# ローカルでの修正が反映されない場合
+npm run build
+
+# ↑をやってから
+npm start
+```
+
 ## デプロイ先
 
 https://jun0222.github.io/react-md/
@@ -19,6 +29,9 @@ npm start
 
 # ビルド
 npm run build
+
+# デプロイ
+npm run build && git push origin main
 ```
 
 ## history
@@ -80,6 +93,9 @@ npm run build && node ./dist/index.js
 
 # Reactのバージョン17をインストールします && @types/reactと@types/react-domのバージョン17をインストールします
 npm i react@17 react-dom@17 @types/react@17 @types/react-dom@17
+
+# Reactのバージョン17をインストールします && @types/reactと@types/react-domのバージョン17をインストールします
+npm i styled-components@5 @types/styled-components@5
 ```
 
 ## Github Pages にデプロイ
