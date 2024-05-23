@@ -58,4 +58,16 @@ npm run build
 
 # 最後の50コマンドの履歴を表示します
 history 50
+
+# TypeScriptのバージョン4をインストールします
+npm i typescript@4
+
+# ts-loaderのバージョン9をインストールします
+npm i ts-loader@9
+
+# tsconfig.jsonという名前の新しいファイルを作成します
+mv src/index.js src/index.ts
+
+# buildスクリプトを実行します && nodeコマンドでdist/index.jsを実行します
+npm run build && node ./dist/index.js
 ```
