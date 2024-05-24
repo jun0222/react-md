@@ -1,10 +1,9 @@
 ## ローカルでの修正が反映されない
 
 ```bash
+#  ↓ https://dev63.hatenablog.com/entry/2024/05/24/212512 で解決
 # ローカルでの修正が反映されない場合
 npm run build
-
-# ↑をやってから
 npm start
 ```
 

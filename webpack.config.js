@@ -2,6 +2,11 @@ const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
+  devServer: {
+    contentBase: "./",
+    port: 8080,
+    publicPath: "/dist/",
+  },
   module: {
     rules: [
       {
