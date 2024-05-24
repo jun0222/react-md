@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Header = styled.header`
@@ -44,11 +45,17 @@ const Preview = styled.div`
 `;
 
 export const Editor: React.FC = () => {
+  const [text, setText] = useState<string>("");
   return (
     <>
       <Header>Markdown ああ</Header>
       <Wrapper>
-        <TextArea value="テキスト入力エリア" />
+        <TextArea
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
+          value={text}
+        />
         <Preview>プレビューエリア</Preview>
       </Wrapper>
     </>
