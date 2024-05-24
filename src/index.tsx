@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render } from "react-dom";
 import styled, { createGlobalStyle } from "styled-components";
-import { Editor } from "./pages/Editor";
+import { Editor } from "./pages/editor";
 
 const GlobalStyle = createGlobalStyle`
     body * {
