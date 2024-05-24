@@ -30,7 +30,7 @@ npm start
 npm run build
 
 # デプロイ
-npm run build && git push origin main
+npm run deploy
 ```
 
 ## history
