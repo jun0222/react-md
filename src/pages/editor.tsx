@@ -5,27 +5,22 @@ import * as ReactMarkdown from "react-markdown";
 import { putMemo } from "../indexeddb/memos";
 import { Button } from "../components/button";
 import { SaveModal } from "../components/save_modal";
+import { Header } from "../components/header";
+import { Link } from "react-router-dom";
 
 const { useState } = React;
-
-const Header = styled.header`
-  align-content: center;
-  display: flex;
-  font-size: 1.5rem;
-  height: 2rem;
-  justify-content: space-between;
-  left: 0;
-  line-height: 2rem;
-  padding: 0.5rem 1rem;
-  position: fixed;
-  right: 0;
-  top: 0;
-`;
 
 const HeaderControl = styled.div`
   height: 2rem;
   display: flex;
   align-content: center;
+`;
+
+const HeaderArea = styled.header`
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 0;
 `;
 
 const Wrapper = styled.div`
@@ -68,9 +63,12 @@ export const Editor: React.FC = () => {
 
   return (
     <>
-      <HeaderControl>
-        <Button onClick={() => setShowModal(true)}>保存する</Button>
-      </HeaderControl>
+      <HeaderArea>
+        <Header title="react-md">
+          <Button onClick={() => setShowModal(true)}>保存する</Button>
+          <Link to="/history">履歴</Link>
+        </Header>
+      </HeaderArea>
       <Wrapper>
         <TextArea
           onChange={(event) => setText(event.target.value)}
