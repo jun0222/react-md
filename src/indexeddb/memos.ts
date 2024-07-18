@@ -27,3 +27,8 @@ export const putMemo = async (title: string, text: string): Promise<void> => {
   // 新しいメモを"memos"テーブルに追加します。
   await memos.put({ datetime, title, text });
 };
+
+// データベースからメモを取得する非同期関数をエクスポートします。
+export const getMemos = (): Promise<MemoRecord[]> => {
+  return memos.orderBy("datetime").reverse().toArray();
+};
