@@ -20,7 +20,7 @@ const StyledButton = styled.button`
 
 interface Props {
   cancel?: boolean;
-  children: string;
+  children: React.ReactNode; // 修正: string から React.ReactNode へ
   onClick: () => void;
 }
 
@@ -28,5 +28,8 @@ export const Button: React.FC<Props> = (props) => (
   <StyledButton
     onClick={props.onClick}
     className={props.cancel ? "cancel" : ""}
-  />
+  >
+    {/* // 修正: children を表示 */}
+    {props.children}
+  </StyledButton>
 );
