@@ -1,14 +1,16 @@
-// Reactライブラリをインポート
+// Reactライブラリをインポートします
 import * as React from "react";
-// ReactDOMのrenderメソッドをインポート
+// ReactDOMのrenderメソッドをインポートします
 import { render } from "react-dom";
-// styled-componentsライブラリからstyledとcreateGlobalStyleをインポート
+// styled-componentsライブラリからstyledとcreateGlobalStyleをインポートします
 import styled, { createGlobalStyle } from "styled-components";
-// Editorコンポーネントをインポート
+// Editorコンポーネントをインポートします
 import { Editor } from "./pages/editor";
-// Historyコンポーネントをインポート
+// Historyコンポーネントをインポートします
 import { History } from "./pages/history";
-// react-router-domライブラリから必要なコンポーネントをインポート
+// react-router-domライブラリから必要なコンポーネントをインポートします
+
+import { useStateWithStorage } from "./hooks/use_state_with_storage";
 
 import {
   HashRouter as Router,
@@ -17,33 +19,42 @@ import {
   Redirect,
 } from "react-router-dom";
 
-// グローバルスタイルを定義
+// グローバルスタイルを定義します
 const GlobalStyle = createGlobalStyle`
     body * {
       box-sizing: border-box;
     }
   `;
+// ローカルストレージのキーを定義
+const StorageKey = "/editor:text";
 
-// メインコンポーネントを定義
-const Main = (
-  <>
-    {/* グローバルスタイルを適用 */}
-    <GlobalStyle />
-    {/* ルーターを設定 */}
-    <Router>
-      {/* /editorパスに対するルートを定義 */}
-      <Route exact path="/editor">
-        <Editor />
-      </Route>
-      {/* /historyパスに対するルートを定義 */}
-      <Route exact path="/history">
-        <History />
-      </Route>
-      {/* その他のパスに対して/editorにリダイレクト */}
-      <Redirect to="/editor" path="*" />
-    </Router>
-  </>
-);
+// Mainコンポーネントを定義
+const Main: React.FC = () => {
+  // useStateWithStorageフックを使用して、ローカルストレージに保存されたテキストを状態として管理
+  const [text, setText] = useStateWithStorage("", StorageKey);
 
-// メインコンポーネントをDOMにレンダリング
-render(Main, document.getElementById("app"));
+  return (
+    <>
+      {/* グローバルスタイルを適用 */}
+      <GlobalStyle />
+      {/* ルーティングを設定 */}
+      <Router>
+        <Switch>
+          {/* /editorパスにマッチした場合、Editorコンポーネントをレンダリング */}
+          <Route exact path="/editor">
+            <Editor text={text} setText={setText} />
+          </Route>
+          {/* /historyパスにマッチした場合、Historyコンポーネントをレンダリング */}
+          <Route exact path="/history">
+            <History setText={setText} />
+          </Route>
+          {/* その他のパスにマッチした場合、/editorにリダイレクト */}
+          <Redirect to="/editor" path="*" />
+        </Switch>
+      </Router>
+    </>
+  );
+};
+
+// MainコンポーネントをDOMにレンダリング
+render(<Main />, document.getElementById("app"));

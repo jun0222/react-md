@@ -1,21 +1,23 @@
-import * as React from "react";
-import styled from "styled-components";
-import { useStateWithStorage } from "../hooks/use_state_with_storage";
-import * as ReactMarkdown from "react-markdown";
-import { putMemo } from "../indexeddb/memos";
-import { Button } from "../components/button";
-import { SaveModal } from "../components/save_modal";
-import { Header } from "../components/header";
-import { Link } from "react-router-dom";
+import * as React from "react"; // Reactライブラリをインポート
+import styled from "styled-components"; // styled-componentsライブラリをインポート
+import { useStateWithStorage } from "../hooks/use_state_with_storage"; // useStateWithStorageフックをインポート
+import * as ReactMarkdown from "react-markdown"; // ReactMarkdownライブラリをインポート
+import { putMemo } from "../indexeddb/memos"; // putMemo関数をインポート
+import { Button } from "../components/button"; // Buttonコンポーネントをインポート
+import { SaveModal } from "../components/save_modal"; // SaveModalコンポーネントをインポート
+import { Header } from "../components/header"; // Headerコンポーネントをインポート
+import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 
-const { useState } = React;
+const { useState } = React; // ReactのuseStateフックをインポート
 
+// ヘッダーコントロールのスタイルを定義
 const HeaderControl = styled.div`
   height: 2rem;
   display: flex;
   align-content: center;
 `;
 
+// ヘッダーエリアのスタイルを定義
 const HeaderArea = styled.header`
   position: fixed;
   right: 0;
@@ -23,6 +25,7 @@ const HeaderArea = styled.header`
   left: 0;
 `;
 
+// ラッパーのスタイルを定義
 const Wrapper = styled.div`
   bottom: 0;
   left: 0;
@@ -31,6 +34,7 @@ const Wrapper = styled.div`
   top: 3rem;
 `;
 
+// テキストエリアのスタイルを定義
 const TextArea = styled.textarea`
   border-right: 1px solid silver;
   border-top: 1px solid silver;
@@ -43,6 +47,7 @@ const TextArea = styled.textarea`
   width: 50vw;
 `;
 
+// プレビューエリアのスタイルを定義
 const Preview = styled.div`
   border-top: 1px solid silver;
   bottom: 0;
@@ -54,37 +59,46 @@ const Preview = styled.div`
   width: 50vw;
 `;
 
-const StorageKey = "pages/editor:text";
+// Editorコンポーネントのプロパティの型を定義
+interface Props {
+  text: string; // テキスト
+  setText: (text: string) => void; // テキストを設定する関数
+}
 
-export const Editor: React.FC = () => {
-  const [text, setText] = useStateWithStorage("", StorageKey);
-
-  const [showModal, setShowModal] = useState(false);
+// Editorコンポーネントを定義
+export const Editor: React.FC<Props> = (props) => {
+  const { text, setText } = props; // プロパティからtextとsetTextを取得
+  const [showModal, setShowModal] = useState(false); // showModal状態とその更新関数を定義
 
   return (
     <>
       <HeaderArea>
         <Header title="react-md">
+          {/* 保存ボタンを表示し、クリック時にモーダルを表示 */}
           <Button onClick={() => setShowModal(true)}>保存する</Button>
+          {/* 履歴ページへのリンクを表示 */}
           <Link to="/history">履歴</Link>
         </Header>
       </HeaderArea>
       <Wrapper>
+        {/* テキストエリアを表示し、変更時にテキストを更新 */}
         <TextArea
           onChange={(event) => setText(event.target.value)}
           value={text}
         />
+        {/* テキストのプレビューを表示 */}
         <Preview>
           <ReactMarkdown>{text}</ReactMarkdown>
         </Preview>
       </Wrapper>
+      {/* モーダルが表示されている場合、SaveModalコンポーネントを表示 */}
       {showModal && (
         <SaveModal
           onSave={(title: string): void => {
-            putMemo(title, text);
-            setShowModal(false);
+            putMemo(title, text); // メモを保存
+            setShowModal(false); // モーダルを閉じる
           }}
-          onCancel={() => setShowModal(false)}
+          onCancel={() => setShowModal(false)} // キャンセル時にモーダルを閉じる
         />
       )}
     </>

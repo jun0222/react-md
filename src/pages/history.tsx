@@ -51,18 +51,22 @@ const MemoText = styled.div`
 `;
 
 // Historyコンポーネントを定義
-export const History: React.FC = () => {
-  // memosという状態変数とその更新関数setMemosを定義
-  const [memos, setMemos] = useState<MemoRecord[]>([]);
-  console.log(memos); // memosの内容をコンソールに出力
+interface Props {
+  setText: (text: string) => void; // テキストを設定する関数
+}
+
+export const History: React.FC<Props> = (props) => {
+  const { setText } = props; // プロパティからsetTextを取得
+  const [memos, setMemos] = useState<MemoRecord[]>([]); // memos状態とその更新関数を定義
+  const history = useHistory(); // useHistoryフックを使用してhistoryオブジェクトを取得
 
   // コンポーネントがマウントされたときにgetMemos関数を呼び出し、取得したメモを状態にセット
   useEffect(() => {
     getMemos().then(setMemos);
   }, []);
 
-  // useHistoryフックを使用してhistoryオブジェクトを取得
-  const history = useHistory();
+  console.log(memos); // memosの内容をコンソールに出力
+
   return (
     <>
       <HeaderArea>
@@ -76,7 +80,13 @@ export const History: React.FC = () => {
         {/* memos配列をmap関数でループし、各メモを表示 */}
         {memos.map((memo) => (
           // メモのdatetimeをキーとしてMemoコンポーネントをレンダリング
-          <Memo key={memo.datetime}>
+          <Memo
+            key={memo.datetime}
+            onClick={() => {
+              setText(memo.text); // メモのテキストを設定
+              history.push("/editor"); // エディタページに遷移
+            }}
+          >
             {/* メモのタイトルを表示 */}
             <MemoTitle>{memo.title}</MemoTitle>
             {/* メモのテキストを表示 */}
